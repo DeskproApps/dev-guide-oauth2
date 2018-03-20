@@ -37,11 +37,26 @@
         "url": "html/index.html"
       }
     ],
-    "storage": [],
+    "storage": [
+      {
+        "name": "oauth:github",
+        "isBackendOnly": true,
+        "permRead": "EVERYBODY",
+        "permWrite": "OWNER"
+      },
+      {
+        "name": "oauth:github:tokens",
+        "isBackendOnly": true,
+        "permRead": "OWNER",
+        "permWrite": "OWNER"
+      }
+    ],
     "settings": [],
     "customFields": [],
     "deskproApiTags": [],
-    "externalApis": []
+    "externalApis": [
+      "/^https?://([^.]+\\.)*github.com/?.*$/"
+    ]
   },
   "devDependencies": {
     "@deskpro/apps-sdk-react": "^0.2.8",
