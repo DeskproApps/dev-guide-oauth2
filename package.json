@@ -1,7 +1,7 @@
 {
-  "name": "@deskpro/apps-boilerplate",
-  "version": "0.2.2",
-  "description": "My first app",
+  "name": "dev-guide-oauth2",
+  "version": "0.1.0",
+  "description": "Create an OAuth2 integration",
   "main": "lib/main/javascript/index.js",
   "scripts": {
     "dev": "dpat server .",
@@ -28,7 +28,7 @@
   "homepage": "https://github.com/deskpro/apps-boilerplate#readme",
   "deskpro": {
     "version": "2.3.0",
-    "title": "My first app",
+    "title": "dev-guide-oauth2",
     "isSingle": true,
     "scope": "agent",
     "targets": [
