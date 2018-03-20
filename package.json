@@ -1,0 +1,56 @@
+{
+  "name": "@deskpro/apps-boilerplate",
+  "version": "0.2.2",
+  "description": "My first app",
+  "main": "lib/main/javascript/index.js",
+  "scripts": {
+    "dev": "dpat server .",
+    "package": "dpat clean . && dpat compile . && dpat bundle-installer . && dpat verify ./dist && dpat package .",
+    "test": "dpat test ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deskpro/apps-boilerplate.git"
+  },
+  "keywords": [
+    "deskpro",
+    "apps boilerplate"
+  ],
+  "author": {
+    "name": "Deskpro Apps",
+    "email": "apps@deskpro.com",
+    "url": "https://www.deskpro.com"
+  },
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/deskpro/apps-boilerplate/issues"
+  },
+  "homepage": "https://github.com/deskpro/apps-boilerplate#readme",
+  "deskpro": {
+    "version": "2.3.0",
+    "title": "My first app",
+    "isSingle": true,
+    "scope": "agent",
+    "targets": [
+      {
+        "target": "ticket-sidebar",
+        "url": "html/index.html"
+      }
+    ],
+    "storage": [],
+    "settings": [],
+    "customFields": [],
+    "deskproApiTags": [],
+    "externalApis": []
+  },
+  "devDependencies": {
+    "@deskpro/apps-sdk-react": "^0.2.8",
+    "@deskpro/react-components": "^1.3.16",
+    "@deskpro/redux-components": "^1.0.1"
+    "@deskpro/apps-dpat": "^0.10.0",
+    "prop-types": "^15.6.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1"
+  }
+}
