@@ -61,7 +61,7 @@
   "devDependencies": {
     "@deskpro/apps-sdk-react": "^0.2.8",
     "@deskpro/react-components": "^1.3.16",
-    "@deskpro/redux-components": "^1.0.1"
+    "@deskpro/redux-components": "^1.0.1",
     "@deskpro/apps-dpat": "^0.10.0",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
