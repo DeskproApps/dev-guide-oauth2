@@ -97,9 +97,29 @@ export default class App extends React.Component {
       })
   }
 
+  componentDidMount() {
+    this.readTicketOwnerEmail()
+      .then(email => this.checkOAuthToken().then(() => email))
+      .then(email => this.readRepositories(email))
+      .then(repos => this.setState({ repos }))
+    ;
+  }
+
   render() {
+    const state = this.state || {};
+    const { repos } = state;
+
+    if (repos) {
+      const links = repos.map(repo => <li key={repo.id}>
+          <h3><a href={repo.html_url} target="_blank" >{repo.name}</a></h3>
+          <p>{repo.description}</p>
+        </li>
+      );
+      return (<div><h3>Ticket owner's repositories</h3><ul>{links}</ul></div>);
+    }
+
     return (
-      <div>Hello world</div>
+      <h3>Loading repositories...</h3>
     );
   }
 }
