@@ -37,6 +37,38 @@ export default class App extends React.Component {
     });
   }
 
+  /**
+   * Checks the agent has a valid token and if not, requests a new token
+   *
+   * @returns {Promise.<null, Error>}
+   */
+  checkOAuthToken()
+  {
+    const {
+      /**
+       * @type {OauthFacade} @see https://deskpro.github.io/apps-sdk-core/reference/OauthFacade.html
+       */
+      oauth,
+      /**
+       * @type {StorageApiFacade} @see https://deskpro.github.io/apps-sdk-core/reference/StorageApiFacade.html
+       */
+      storage,
+      /**
+       * @type {DeskproAPIClient} @see https://deskpro.github.io/apps-sdk-core/reference/DeskproAPIClient.html
+       */
+      restApi
+    } = this.props.dpapp;
+
+    const headers = {
+      'Accept': 'application/vnd.github.v3+json',
+      'Authorization': 'token {{oauth:github:tokens}}'
+    };
+    return restApi
+      .fetchCORS(`https://api.github.com/user`, { method: 'GET', headers })
+      .catch(error => oauth.access('github').then(token => storage.setAppStorage('oauth:github:tokens', token.access_token)))
+      ;
+  }
+
   render() {
     return (
       <div>Hello world</div>
