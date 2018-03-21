@@ -67,7 +67,31 @@ class ScreenSettings extends React.Component {
     ;
   }
 
-  onBeforeSubmit(values) { return Promise.resolve(values); }
+  /**
+   * Hook method called before the actual submit takes place.
+   * Checks the form values by obtaining an access token
+   *
+   * @param {Object} values
+   * @returns {Promise.<Object, String>}
+   */
+  onBeforeSubmit(values)
+  {
+    // build the connnection information
+    const connection = {
+      urlRedirect: values.githubCallbackURL,
+      urlAuthorize: `https://github.com/login/oauth/authorize`,
+      urlAccessToken: `https://github.com/login/oauth/access_token`,
+      clientId: values.githubClientId,
+      clientSecret: values.githubClientSecret
+    };
+
+    const { oauth } = this.props.dpapp;
+    return oauth.register('github', connection)            // register a connection to provider
+      .then(connection => oauth.access('github'))          // request an oauth token from the provider
+      .then(token => ({ ...values, githubClientSecret: "***" })  )
+      .catch(error => Promise.reject('Invalid Oauth settings')) // display an error message
+      ;
+  }
 
   /**
    * Callback, invoked when the settings form is submitted
