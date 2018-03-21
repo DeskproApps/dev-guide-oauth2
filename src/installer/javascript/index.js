@@ -42,6 +42,31 @@ class ScreenSettings extends React.Component {
     this.state = { values: null, error: null };
   }
 
+  componentDidMount() { this.setDefaultValues(); }
+
+  /**
+   * Retrieves the application oauth2 settings, such as the callback url
+   */
+  setDefaultValues()
+  {
+    // obtain a reference to the OAuth client
+    const {
+      /**
+       * @type {OauthFacade} @see https://deskpro.github.io/apps-sdk-core/reference/OauthFacade.html
+       */
+      oauth
+    } = this.props.dpapp;
+    const { values } = this.props;
+
+    // retrieve the default oauth settings for the app such as the redirect url
+    oauth.settings('github')
+      .then( oauthSettings => this.setState({
+        values: { ...values, githubCallbackURL: oauthSettings.urlRedirect }
+      }))
+      .catch( error => this.setState({ values: null, error: 'Failed to read default app oauth settings' }) )
+    ;
+  }
+
   onBeforeSubmit(values) { return Promise.resolve(values); }
 
   /**
