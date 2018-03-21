@@ -69,6 +69,34 @@ export default class App extends React.Component {
       ;
   }
 
+  /**
+   * Returns a list of Github repositories
+   *
+   * @param {string} email the ticket owner's email
+   * @returns {Promise.<Array<Object>, Error>}
+   */
+  readRepositories(email)
+  {
+    const headers = {
+      'Accept': 'application/vnd.github.v3+json',
+      'Authorization': 'token {{oauth:github:tokens}}'
+    };
+    const query = `${email} in:email`;
+
+    const { restApi } = this.props.dpapp;
+    return restApi.fetchCORS(
+      `https://api.github.com/search/users?q=${encodeURIComponent(query)}`, { method: 'GET', headers }
+    )
+      .then(response => {
+// we have a match, fetch the
+        if (response.body.total_count === 1) {
+          const { repos_url: listReposUrl } = response.body.items[0];
+          return restApi.fetchCORS(listReposUrl, { method: 'GET', headers }).then(response => response.body)
+        }
+        return [];
+      })
+  }
+
   render() {
     return (
       <div>Hello world</div>
